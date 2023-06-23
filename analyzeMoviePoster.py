@@ -3,7 +3,12 @@ import cv2
 import sys
 from deepface.detectors import FaceDetector
 from mtcnn import MTCNN
+from collections import defaultdict
 
+
+ages = defaultdict(int)
+races = defaultdict(int)
+genders = defaultdict(int)
 
 backends = [
   'opencv', 
@@ -32,9 +37,16 @@ def analyzePoster(img):
     analysis = DeepFace.analyze(
         img_path = img, 
         enforce_detection = True,
-        actions = ["age", "gender", "emotion", "race"]
-    ) 
-    print(analysis)
+        actions = ["age", "gender", "race"]
+    )
+    for face_analysis in analysis:
+        age = face_analysis['age']
+        gender = face_analysis['dominant_gender']
+        race = face_analysis['dominant_race']
+        print(age, gender, race)
+        ages[age] += 1
+        genders[gender] += 1
+        races[race] += 1
 
 
 def main():
@@ -51,6 +63,9 @@ def main():
     
     img = cv2.imread( img_path )
     analyzePoster(img)
+    print(ages)
+    print(races)
+    print(genders)
 
 if __name__ == "__main__":
     main()
