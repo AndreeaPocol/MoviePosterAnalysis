@@ -10,6 +10,7 @@ ages = defaultdict(int)
 races = defaultdict(int)
 genders = defaultdict(int)
 
+posters_without_faces = []
 backends = [
   'opencv', 
   'ssd', 
@@ -75,10 +76,12 @@ def main():
             analyzePoster(img)
         except Exception:
             print(f"Unable to detect face for {img_path}")
+            posters_without_faces.append(img_path)
 
     writeOutput(ages, "ages.csv")
     writeOutput(races, "races.csv")
     writeOutput(genders, "genders.csv")
+    print(posters_without_faces)
 
 
 if __name__ == "__main__":
