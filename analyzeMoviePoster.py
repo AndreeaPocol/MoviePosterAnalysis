@@ -1,4 +1,6 @@
 from deepface import DeepFace
+import cv2
+import sys
 
 backends = [
   'opencv', 
@@ -9,10 +11,19 @@ backends = [
   'mediapipe'
 ]
 
+def analyzePoster(img):
+    analysis = DeepFace.analyze(
+        img_path = img, 
+        enforce_detection = True,
+        actions = ["age", "gender", "emotion", "race"]
+    ) 
+    print(analysis)
+
+
 def main():
-    img = ""
+    img_path = ""
     if len(sys.argv) == 2:
-        img = sys.argv[1]
+        img_path = sys.argv[1]
     else:
         print(
             "Usage: {name} [ analyzeMoviePoster ]".format(
@@ -21,9 +32,8 @@ def main():
         )
         exit()
     
-    print(img)
-    analysis = DeepFace.analyze(
-        img_path = img, 
-        actions = ["age", "gender", "emotion", "race"], 
-        detector_backend = backends[3]) 
-    print(analysis)
+    img = cv2.imread( img_path )
+    analyzePoster(img)
+
+if __name__ == "__main__":
+    main()
