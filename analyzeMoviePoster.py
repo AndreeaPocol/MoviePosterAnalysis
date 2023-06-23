@@ -4,7 +4,7 @@ import sys
 from deepface.detectors import FaceDetector
 from mtcnn import MTCNN
 from collections import defaultdict
-
+import pandas as pd
 
 ages = defaultdict(int)
 races = defaultdict(int)
@@ -18,6 +18,12 @@ backends = [
   'retinaface', 
   'mediapipe'
 ]
+
+def writeOutput(my_dict, filename):
+    with open(filename, 'w') as f:
+        for key in my_dict.keys():
+            f.write("%s,%s\n"%(key,my_dict[key]))
+
 
 def detectFaces():
     detector = MTCNN()
@@ -61,11 +67,13 @@ def main():
         )
         exit()
     
-    img = cv2.imread( img_path )
+    img = cv2.imread(img_path)
     analyzePoster(img)
-    print(ages)
-    print(races)
-    print(genders)
+
+    writeOutput(ages, "ages.csv")
+    writeOutput(races, "races.csv")
+    writeOutput(genders, "genders.csv")
+
 
 if __name__ == "__main__":
     main()
