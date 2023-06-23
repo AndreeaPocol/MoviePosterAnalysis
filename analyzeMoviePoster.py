@@ -1,6 +1,9 @@
 from deepface import DeepFace
 import cv2
 import sys
+from deepface.detectors import FaceDetector
+from mtcnn import MTCNN
+
 
 backends = [
   'opencv', 
@@ -10,6 +13,20 @@ backends = [
   'retinaface', 
   'mediapipe'
 ]
+
+def detectFaces():
+    detector = MTCNN()
+    faces = detector.detect_faces( img )
+    count = 0
+    for face in faces:
+        x, y, w, h = face["box"]
+        theface = img[int(y):int(y+h), int(x):int(x+w)]
+        path = "face" + str(count) + ".png"
+        cv2.imwrite( path, theface )
+        count = count + 1
+
+        # do something
+
 
 def analyzePoster(img):
     analysis = DeepFace.analyze(
