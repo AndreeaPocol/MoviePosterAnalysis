@@ -43,7 +43,8 @@ def analyzePoster(img):
     analysis = DeepFace.analyze(
         img_path = img, 
         enforce_detection = True,
-        actions = ["age", "gender", "race"]
+        actions = ["age", "gender", "race"],
+        detector_backend = backends[3]
     )
     for face_analysis in analysis:
         age = face_analysis['age']
