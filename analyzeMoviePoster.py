@@ -4,7 +4,7 @@ import sys
 from deepface.detectors import FaceDetector
 from mtcnn import MTCNN
 from collections import defaultdict
-import pandas as pd
+import glob
 
 ages = defaultdict(int)
 races = defaultdict(int)
@@ -35,7 +35,6 @@ def detectFaces():
         path = "face" + str(count) + ".png"
         cv2.imwrite( path, theface )
         count = count + 1
-
         # do something
 
 
@@ -57,9 +56,9 @@ def analyzePoster(img):
 
 
 def main():
-    img_path = ""
+    dir_path = ""
     if len(sys.argv) == 2:
-        img_path = sys.argv[1]
+        dir_path = sys.argv[1]
     else:
         print(
             "Usage: {name} [ analyzeMoviePoster ]".format(
@@ -68,8 +67,14 @@ def main():
         )
         exit()
     
-    img = cv2.imread(img_path)
-    analyzePoster(img)
+    paths = glob.glob(dir_path)
+
+    for img_path in paths:
+        img = cv2.imread(img_path)
+        try:
+            analyzePoster(img)
+        except Exception:
+            print(f"Unable to detect face for {img_path}")
 
     writeOutput(ages, "ages.csv")
     writeOutput(races, "races.csv")
