@@ -50,7 +50,7 @@ def analyzePoster(img):
         age = face_analysis['age']
         gender = face_analysis['dominant_gender']
         race = face_analysis['dominant_race']
-        print(age, gender, race)
+        print(f"{age}-year-old {race.lower()} {gender.lower()}")
         ages[age] += 1
         genders[gender] += 1
         races[race] += 1
@@ -81,7 +81,7 @@ def main():
     writeOutput(ages, "ages.csv")
     writeOutput(races, "races.csv")
     writeOutput(genders, "genders.csv")
-    print(posters_without_faces)
+    print("Could not detect faces for: ", posters_without_faces)
 
 
 if __name__ == "__main__":
