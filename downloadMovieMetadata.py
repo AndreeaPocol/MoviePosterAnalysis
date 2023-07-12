@@ -1,23 +1,25 @@
 from tqdm import tqdm
 import requests
 import json
+import requests
+import threading
 
-key = "1844b7ba"
-
-with open("tconsts_small.txt") as f:
-    tconsts = f.read().splitlines()
-
+maxthreads = 1000
+sema = threading.Semaphore(value=maxthreads)
 data = dict()
 problematic = []
 connectionDropped = []
+key = "1844b7ba"
 
-for tid in tqdm(tconsts):
+
+def make_request(tid):
+    sema.acquire()
     try:
         print(f"Processing {tid}...")
         data[tid] = requests.get(
             "http://www.omdbapi.com/", 
             params={"apikey": key, "i": tid}, 
-            timeout=20
+            timeout=200
         ).json()
     except json.JSONDecodeError:
         try:
@@ -34,13 +36,32 @@ for tid in tqdm(tconsts):
         problematic.append(tid)
     except Exception:
         problematic.append(tid)
+    sema.release()
 
 
-with open("omdb_movies.json", "w") as f:
-    json.dump(data, f)
+def main():
+    with open("tconsts.txt") as f:
+        tconsts = f.read().splitlines()
 
-with open("problematic_tconsts.txt", "w") as f:
-    f.write("\n".join(problematic))
-    
-with open("connection_dropped_tconsts.txt", "w") as f:
-    f.write("\n".join(connectionDropped))
+    # Create and start threads for each URL
+    threads = []
+    for tid in tconsts:
+        thread = threading.Thread(target=make_request, args=(tid,))
+        thread.start()
+        threads.append(thread)
+    # Wait for all threads to finish
+    for thread in threads:
+        thread.join()
+
+    print("Ready to write files...")
+    with open("omdb_movies.json", "w") as f:
+        json.dump(data, f)
+
+    with open("problematic_tconsts.txt", "w") as f:
+        f.write("\n".join(problematic))
+        
+    with open("connection_dropped_tconsts.txt", "w") as f:
+        f.write("\n".join(connectionDropped))
+
+if __name__ == "__main__":
+    main()
