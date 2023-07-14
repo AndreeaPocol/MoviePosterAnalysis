@@ -1,26 +1,26 @@
-from tqdm import tqdm
 import requests
 import json
 import requests
-import threading
+import os
+from multiprocessing import Pool
 
-maxthreads = 1000
-sema = threading.Semaphore(value=maxthreads)
 data = dict()
 problematic = []
 connectionDropped = []
 key = "1844b7ba"
 
+AVAILABLE_CPUS = os.cpu_count() - 1
+if AVAILABLE_CPUS == 0:
+    AVAILABLE_CPUS = 1
 
 def make_request(tid):
-    sema.acquire()
     try:
-        print(f"Processing {tid}...")
         data[tid] = requests.get(
             "http://www.omdbapi.com/", 
             params={"apikey": key, "i": tid}, 
             timeout=200
         ).json()
+        print(f"Successfully processed {tid}...")
     except json.JSONDecodeError:
         try:
             data[tid] = json.loads(
@@ -30,28 +30,24 @@ def make_request(tid):
                 ).text.replace("\\", "\\\\")
             )
         except Exception:
-            problematic.append(tid)
+            print(f'JSON decode error occured while processing {tid}')
+            problematic.append(tid) 
     except requests.Timeout:
         print(f'Connection dropped while processing {tid}')
         problematic.append(tid)
     except Exception:
+        print(f'Unknown error occured while processing {tid}')
         problematic.append(tid)
-    sema.release()
 
 
 def main():
-    with open("tconsts.txt") as f:
+    with open("tconsts_small.txt") as f:
         tconsts = f.read().splitlines()
 
-    # Create and start threads for each URL
-    threads = []
-    for tid in tconsts:
-        thread = threading.Thread(target=make_request, args=(tid,))
-        thread.start()
-        threads.append(thread)
-    # Wait for all threads to finish
-    for thread in threads:
-        thread.join()
+    pool = Pool(processes=AVAILABLE_CPUS)
+    results = pool.map(make_request, tconsts[:250000])
+    pool.close()
+    pool.join()
 
     print("Ready to write files...")
     with open("omdb_movies.json", "w") as f:
