@@ -41,11 +41,11 @@ def make_request(tid):
 
 
 def main():
-    with open("tconsts_small.txt") as f:
+    with open("tconsts.txt") as f:
         tconsts = f.read().splitlines()
 
     pool = Pool(processes=AVAILABLE_CPUS)
-    results = pool.map(make_request, tconsts[:250000])
+    results = pool.map(make_request, tconsts[:232430])
     pool.close()
     pool.join()
 
