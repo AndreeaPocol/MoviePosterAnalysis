@@ -4,7 +4,11 @@ import sys
 from deepface.detectors import FaceDetector
 from mtcnn import MTCNN
 from collections import defaultdict
-import glob
+import requests
+from PIL import Image
+from io import BytesIO
+import json
+
 
 ages = defaultdict(int)
 races = defaultdict(int)
@@ -26,9 +30,9 @@ def writeOutput(my_dict, filename):
             f.write("%s,%s\n"%(key,my_dict[key]))
 
 
-def detectFaces():
+def detectFaces(img):
     detector = MTCNN()
-    faces = detector.detect_faces( img )
+    faces = detector.detect_faces(img)
     count = 0
     for face in faces:
         x, y, w, h = face["box"]
@@ -50,33 +54,37 @@ def analyzePoster(img):
         age = face_analysis['age']
         gender = face_analysis['dominant_gender']
         race = face_analysis['dominant_race']
-        print(f"{age}-year-old {race.lower()} {gender.lower()}")
+        print(f"Detected a {age}-year-old {race.lower()} {gender.lower()}...")
         ages[age] += 1
         genders[gender] += 1
         races[race] += 1
 
 
 def main():
-    dir_path = ""
+    movieFile = ""
     if len(sys.argv) == 2:
-        dir_path = sys.argv[1]
+        movieFile = sys.argv[1]
     else:
         print(
-            "Usage: {name} [ analyzeMoviePoster ]".format(
+            "Usage: {name} [ movieFile ]".format(
                 name=sys.argv[0]
             )
         )
         exit()
     
-    paths = glob.glob(dir_path)
+    with open(movieFile) as f:
+        movies = json.load(f)
 
-    for img_path in paths:
-        img = cv2.imread(img_path)
+    for movie in movies:
+        url = movie['Poster']
+        name = movie['Title']
+        poster = requests.get(url)
+        img = Image.open(BytesIO(poster.content))
         try:
             analyzePoster(img)
         except Exception:
-            print(f"Unable to detect face for {img_path}")
-            posters_without_faces.append(img_path)
+            print(f"Unable to detect face for {name}")
+            posters_without_faces.append(name)
 
     writeOutput(ages, "ages.csv")
     writeOutput(races, "races.csv")
