@@ -60,9 +60,12 @@ def analyzePoster(movies):
             url = movie[1]['Poster']
             tconst = movie[0]
             poster = requests.get(url)
+            filePath = f"{tconst}.png"
             img = Image.open(BytesIO(poster.content))
+            # img.show()
+            img.save(filePath)
             analysis = DeepFace.analyze(
-                img_path = img, 
+                img_path = filePath, 
                 enforce_detection = True,
                 actions = ["age", "gender", "race"],
                 detector_backend = backends[3]
