@@ -1,6 +1,5 @@
 import requests
 import json
-import requests
 import os
 from multiprocessing import Pool
 
