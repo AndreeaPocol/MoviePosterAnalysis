@@ -3,9 +3,7 @@ import json
 import os
 from multiprocessing import Pool
 
-DATA = {}
 problematic = []
-connectionDropped = []
 key = "1844b7ba"
 
 AVAILABLE_CPUS = os.cpu_count() - 1
@@ -29,7 +27,6 @@ def make_request(tids):
             if ( i > 0 and i % 1000 == 0 ):
                 print(f"Successfully processed approximately: {i} of {maxTIDS} tconsts (most recent {tid})")
               
-            #print(f"Successfully processed {tid}...")
         except json.JSONDecodeError:
             try:
                 data[tid] = json.loads(
@@ -49,10 +46,12 @@ def make_request(tids):
             problematic.append(tid)
 
     print(f"Thread done.")
-    return data
+    return data, problematic
 
 def main():
-    global DATA
+    DATA = {}
+    PROBLEMPOSTERS = []
+
     with open("tconsts.txt") as f:
         tconsts = f.read().splitlines()
 
@@ -69,9 +68,9 @@ def main():
     pool.close()
     pool.join()
 
-    # JOIN all dictionaries into ONE
     for result in results:
-        DATA |= result
+        DATA |= result[0]
+        PROBLEMPOSTERS += result[1]
 
     print( "Data: ", DATA["tt0066730"] )
     print("Ready to write files... with ", len( DATA.keys() ), " entries.")
@@ -80,11 +79,7 @@ def main():
     f.close()
     
     with open("problematic_tconsts.txt", "w") as f:
-        f.write("\n".join(problematic))
-    f.close()
-
-    with open("connection_dropped_tconsts.txt", "w") as f:
-        f.write("\n".join(connectionDropped))
+        f.write("\n".join(PROBLEMPOSTERS))
     f.close()
 
 if __name__ == "__main__":
