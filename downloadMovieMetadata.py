@@ -4,7 +4,7 @@ import requests
 import os
 from multiprocessing import Pool
 
-data = dict()
+DATA = {}
 problematic = []
 connectionDropped = []
 key = "1844b7ba"
@@ -13,51 +13,80 @@ AVAILABLE_CPUS = os.cpu_count() - 1
 if AVAILABLE_CPUS == 0:
     AVAILABLE_CPUS = 1
 
-def make_request(tid):
-    try:
-        data[tid] = requests.get(
-            "http://www.omdbapi.com/", 
-            params={"apikey": key, "i": tid}, 
-            timeout=200
-        ).json()
-        print(f"Successfully processed {tid}...")
-    except json.JSONDecodeError:
-        try:
-            data[tid] = json.loads(
-                requests.get(
-                    "http://www.omdbapi.com/",
-                    params={"apikey": key, "i": tid},
-                ).text.replace("\\", "\\\\")
-            )
-        except Exception:
-            print(f'JSON decode error occured while processing {tid}')
-            problematic.append(tid) 
-    except requests.Timeout:
-        print(f'Connection dropped while processing {tid}')
-        problematic.append(tid)
-    except Exception:
-        print(f'Unknown error occured while processing {tid}')
-        problematic.append(tid)
+def make_request(tids):
+    maxTIDS = len(tids)
 
+    data = {}
+    for i in range( 0, maxTIDS ):
+        tid = tids[i]
+       
+        try:
+            data[tid] = requests.get(
+                "http://www.omdbapi.com/", 
+                params={"apikey": key, "i": tid}, 
+                timeout=200
+            ).json()
+        
+            if ( i > 0 and i % 1000 == 0 ):
+                print(f"Successfully processed approximately: {i} of {maxTIDS} tconsts (most recent {tid})")
+              
+            #print(f"Successfully processed {tid}...")
+        except json.JSONDecodeError:
+            try:
+                data[tid] = json.loads(
+                    requests.get(
+                        "http://www.omdbapi.com/",
+                        params={"apikey": key, "i": tid},
+                    ).text.replace("\\", "\\\\")
+                )
+            except Exception:
+                print(f'JSON decode error occured while processing {tid}')
+                problematic.append(tid) 
+        except requests.Timeout:
+            print(f'Connection dropped while processing {tid}')
+            problematic.append(tid)
+        except Exception:
+            print(f'Unknown error occured while processing {tid}')
+            problematic.append(tid)
+
+    print(f"Thread done.")
+    return data
 
 def main():
+    global DATA
     with open("tconsts.txt") as f:
         tconsts = f.read().splitlines()
 
+    # chunk tconsts into AVAILABLE_CPUS of work
+    startAt = 0
+    endAt = 10000 #232430
+    numToProcess = endAt - startAt
+    numTCONSTPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
+    print( numTCONSTPerChunk )
+
+    tconstsChunked = [tconsts[i:i + numTCONSTPerChunk] for i in range(startAt, endAt, numTCONSTPerChunk )]
     pool = Pool(processes=AVAILABLE_CPUS)
-    results = pool.map(make_request, tconsts[:232430])
+    results = pool.map(make_request, tconstsChunked) #tconsts[:232430])
     pool.close()
     pool.join()
 
-    print("Ready to write files...")
-    with open("omdb_movies.json", "w") as f:
-        json.dump(data, f)
+    # JOIN all dictionaries into ONE
+    for result in results:
+        DATA |= result
 
+    print( "Data: ", DATA["tt0066730"] )
+    print("Ready to write files... with ", len( DATA.keys() ), " entries.")
+    with open("omdb_movies.json", "w") as f:
+        json.dump(DATA, f)
+    f.close()
+    
     with open("problematic_tconsts.txt", "w") as f:
         f.write("\n".join(problematic))
-        
+    f.close()
+
     with open("connection_dropped_tconsts.txt", "w") as f:
         f.write("\n".join(connectionDropped))
+    f.close()
 
 if __name__ == "__main__":
     main()
