@@ -52,8 +52,8 @@ def main():
         movies = json.load(f)
 
     # chunk movies into AVAILABLE_CPUS of work
-    startAt = 0 # 232430
-    endAt = 232430 # 464860
+    startAt = 0
+    endAt = 464861
     numToProcess = endAt - startAt
     numMoviesPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
     print(f"Number of movies per chunk: {numMoviesPerChunk}")

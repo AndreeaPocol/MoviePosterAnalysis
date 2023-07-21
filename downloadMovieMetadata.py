@@ -56,15 +56,15 @@ def main():
         tconsts = f.read().splitlines()
 
     # chunk tconsts into AVAILABLE_CPUS of work
-    startAt = 0
-    endAt = 464861
+    startAt = 0 #232430
+    endAt = 232430 #464861
     numToProcess = endAt - startAt
     numTCONSTPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
     print(numTCONSTPerChunk)
 
     tconstsChunked = [tconsts[i:i + numTCONSTPerChunk] for i in range(startAt, endAt, numTCONSTPerChunk )]
     pool = Pool(processes=AVAILABLE_CPUS)
-    results = pool.map(make_request, tconstsChunked) #tconsts[:232430])
+    results = pool.map(make_request, tconstsChunked)
     pool.close()
     pool.join()
 
