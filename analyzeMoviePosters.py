@@ -3,23 +3,14 @@ import cv2
 import sys
 from deepface.detectors import FaceDetector
 from mtcnn import MTCNN
-from collections import defaultdict
-import requests
-from PIL import Image
-from io import BytesIO
-import json
+import glob
 import os
 from multiprocessing import Pool
-
+from collections import Counter
 
 AVAILABLE_CPUS = os.cpu_count() - 1
 if AVAILABLE_CPUS == 0:
     AVAILABLE_CPUS = 1
-
-AGES = {}
-RACES = {}
-GENDERS = {}
-NOFACES = []
 
 backends = [
   'opencv', 
@@ -50,22 +41,15 @@ def detectFaces(img):
 
 
 def analyzePoster(movies):
-    ages = defaultdict(int)
-    races = defaultdict(int)
-    genders = defaultdict(int)
+    ages = Counter({})
+    races = Counter({})
+    genders = Counter({})
     posters_without_faces = []
 
     for movie in movies:
         try:
-            url = movie[1]['Poster']
-            tconst = movie[0]
-            poster = requests.get(url)
-            filePath = f"{tconst}.png"
-            img = Image.open(BytesIO(poster.content))
-            # img.show()
-            img.save(filePath)
             analysis = DeepFace.analyze(
-                img_path = filePath, 
+                img_path = movie, 
                 enforce_detection = True,
                 actions = ["age", "gender", "race"],
                 detector_backend = backends[3]
@@ -79,38 +63,37 @@ def analyzePoster(movies):
                 genders[gender] += 1
                 races[race] += 1
         except Exception:
-            print(f"Unable to detect face for {tconst}...")
-            posters_without_faces.append(tconst)
+            print(f"Unable to detect face for {movie}...")
+            posters_without_faces.append(movie)
     return ages, races, genders, posters_without_faces
 
 
 def main():
-    global AGES
-    global RACES
-    global GENDERS
-    global NOFACES
-    movieFile = ""
+    AGES = Counter({})
+    RACES = Counter({})
+    GENDERS = Counter({})
+    NOFACES = []
 
+    dir_path = ""
     if len(sys.argv) == 2:
-        movieFile = sys.argv[1]
+        dir_path = sys.argv[1]
     else:
         print(
-            "Usage: {name} [ movieFile ]".format(
+            "Usage: {name} [ analyzeMoviePoster ]".format(
                 name=sys.argv[0]
             )
         )
         exit()
     
-    with open(movieFile) as f:
-        movies = json.load(f)
+    paths = glob.glob(f"{dir_path}/*")
 
     # chunk movies into AVAILABLE_CPUS of work
     startAt = 0
-    endAt = 3 #232430
+    endAt = 10 #232430
     numToProcess = endAt - startAt
     numMoviesPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
     print(f"Number of movies per chunk: {numMoviesPerChunk}")
-    moviesChunked = [list(movies.items())[i:i + numMoviesPerChunk] for i in range(startAt, endAt, numMoviesPerChunk)]
+    moviesChunked = [paths[i:i + numMoviesPerChunk] for i in range(startAt, endAt, numMoviesPerChunk)]
     pool = Pool(processes=AVAILABLE_CPUS)
     results = pool.map(analyzePoster, moviesChunked)
     pool.close()
@@ -118,9 +101,9 @@ def main():
 
     # JOIN all dictionaries into ONE
     for result in results:
-        AGES |= result[0]
-        RACES |= result[1]
-        GENDERS |= result[2]
+        AGES += result[0]
+        RACES += result[1]
+        GENDERS += result[2]
         NOFACES += result[3]
 
     writeDictToCsv(AGES, f"ages{endAt}.csv")
