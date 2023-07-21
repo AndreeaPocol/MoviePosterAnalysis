@@ -89,7 +89,7 @@ def main():
 
     # chunk movies into AVAILABLE_CPUS of work
     startAt = 0
-    endAt = 10 #232430
+    endAt = 464861
     numToProcess = endAt - startAt
     numMoviesPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
     print(f"Number of movies per chunk: {numMoviesPerChunk}")
@@ -106,10 +106,10 @@ def main():
         GENDERS += result[2]
         NOFACES += result[3]
 
-    writeDictToCsv(AGES, f"ages{endAt}.csv")
-    writeDictToCsv(RACES, f"races{endAt}.csv")
-    writeDictToCsv(GENDERS, f"genders{endAt}.csv")
-    with open(f"noFaces{endAt}.txt",'w') as tfile:
+    writeDictToCsv(AGES, f"ages.csv")
+    writeDictToCsv(RACES, f"races.csv")
+    writeDictToCsv(GENDERS, f"genders.csv")
+    with open(f"no_faces.txt",'w') as tfile:
         tfile.write('\n'.join(NOFACES))
 
 if __name__ == "__main__":

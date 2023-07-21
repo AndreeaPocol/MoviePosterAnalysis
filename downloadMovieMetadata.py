@@ -57,10 +57,10 @@ def main():
 
     # chunk tconsts into AVAILABLE_CPUS of work
     startAt = 0
-    endAt = 10000 #232430
+    endAt = 464861
     numToProcess = endAt - startAt
     numTCONSTPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
-    print( numTCONSTPerChunk )
+    print(numTCONSTPerChunk)
 
     tconstsChunked = [tconsts[i:i + numTCONSTPerChunk] for i in range(startAt, endAt, numTCONSTPerChunk )]
     pool = Pool(processes=AVAILABLE_CPUS)
