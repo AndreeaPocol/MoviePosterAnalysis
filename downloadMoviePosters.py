@@ -30,6 +30,8 @@ def downloadPosters(movies):
     for movie in movies:
         try:
             url = movie[1]['Poster']
+            if url == "N/A":
+                continue
             tconst = movie[0]
             poster = requests.get(url, timeout=100)
             filePath = f"{postersFolder}/{tconst}.png"
