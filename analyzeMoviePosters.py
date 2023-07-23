@@ -40,19 +40,6 @@ with open(movieDataFile) as json_file:
     movieData = json.load(json_file)
 
 
-def detectFaces(img):
-    detector = MTCNN()
-    faces = detector.detect_faces(img)
-    count = 0
-    for face in faces:
-        x, y, w, h = face["box"]
-        theface = img[int(y):int(y+h), int(x):int(x+w)]
-        path = "face" + str(count) + ".png"
-        cv2.imwrite( path, theface )
-        count = count + 1
-        # do something
-
-
 def ageBracket(age):
     if age <= 12:
         return "children"
