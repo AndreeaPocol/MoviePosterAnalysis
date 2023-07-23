@@ -60,24 +60,36 @@ Movie posters are saved to the specified download folder.
 
 #### Usage:
 
-Supply the path to the folder containing the movie posters. 
+Supply the path to the folder containing the movie posters and a JSON file containing the corresponding metadata. 
 
 ```
-python3 analyzeMoviePoster.py [path-to-image-folder]
+python3 analyzeMoviePosters.py [posterDir metadataFile]
 ```
 
 #### Example:
 
 ```
-python3 analyzeMoviePoster.py movies
+python3 analyzeMoviePosters.py movies movies.json
 ```
 
 #### Output:
-The program outputs three CSVs:
-* `ages.csv`
-* `genders.csv`
-* `races.csv`
+The program outputs one CSV for all movie posters that were successfully processed and containing the following headers:
+* 'id',
+* 'title',
+* 'year',
+* 'genre',
+* 'country',
+* 'children',
+* 'adolescents',
+* 'adults',
+* 'older-adults',
+* 'asians',
+* 'indians',
+* 'blacks',
+* 'whites',
+* 'middle-easterns',
+* 'latino-hispanics',
+* 'men',
+* 'women'
 
-The left column is the classification and the right column is the count.
-
-The program also prints a list of posters for which it was unable to detect at least one face.
+The program also prints and saves a list of posters for which it was unable to detect at least one face, or for which an error was encountered during processing.
