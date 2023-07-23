@@ -30,7 +30,7 @@ if len(sys.argv) == 3:
     movieDataFile = sys.argv[2]
 else:
     print(
-        "Usage: {name} [ analyzeMoviePoster metadataFile]".format(
+        "Usage: {name} [ analyzeMoviePoster posterDir metadataFile]".format(
             name=sys.argv[0]
         )
     )
@@ -79,7 +79,6 @@ def analyzePoster(movies):
                 racesInThisPoster[race] += 1
             
             tconst = os.path.splitext(os.path.basename(movie))[0]
-            print("tconst: ", tconst)
             metadata = movieData[tconst]
             csvRow = [tconst,
                       metadata['Title'],
@@ -102,7 +101,7 @@ def analyzePoster(movies):
             csvRows.append(csvRow)
 
         except Exception:
-            print(f"Unable to detect face for {movie}...")
+            print(f"Unable to process {movie}...")
             posters_without_faces.append(movie)
     return posters_without_faces, csvRows
 
