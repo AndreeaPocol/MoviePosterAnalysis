@@ -124,8 +124,8 @@ def main():
 
     # JOIN all dictionaries into ONE
     for result in results:
-        NOFACES += result[3]
-        ROWS += result[4]
+        NOFACES += result[0]
+        ROWS += result[1]
 
     with open("no_faces.txt",'w') as tfile:
         tfile.write('\n'.join(NOFACES))
