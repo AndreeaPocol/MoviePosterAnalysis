@@ -84,13 +84,22 @@ def ageBracket(age):
 def analyzePoster(movies):
     posters_without_faces = []
 
-    file = open(f"{str(os.getpid())}-diversity-dataset.csv", 'a')
-    writer = csv.writer(file)
-    writer.writerow(header)
+    diversityDatasetFilename = f"{str(os.getpid())}-diversity-dataset.csv"
+    detailedDiversityDatasetFilename = f"{str(os.getpid())}-diversity-dataset-detailed.csv"
     
-    fileDetailed = open(f"{str(os.getpid())}-diversity-dataset-detailed.csv", 'a')
+    writeHeader = False if (os.path.isfile(diversityDatasetFilename)) else True
+
+    file = open(diversityDatasetFilename, 'a')
+    writer = csv.writer(file)
+    if writeHeader:
+        writer.writerow(header)
+
+    writeHeader = False if (os.path.isfile(detailedDiversityDatasetFilename)) else True
+    
+    fileDetailed = open(detailedDiversityDatasetFilename, 'a')
     writerDetailed = csv.writer(fileDetailed)
-    writerDetailed.writerow(headerDetailed)
+    if writeHeader:
+        writerDetailed.writerow(headerDetailed)
 
     for movie in movies:
         # deepface classifications
