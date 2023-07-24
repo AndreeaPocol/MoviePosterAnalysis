@@ -127,7 +127,7 @@ def analyzePoster(movies):
                     gender,
                     race
                 ]
-                writerDetailed.writerows(csvRowDetailed)  
+                writerDetailed.writerow(csvRowDetailed)  
 
             csvRow = [
                 tconst,
@@ -148,7 +148,7 @@ def analyzePoster(movies):
                 gendersInThisPoster["Man"],
                 gendersInThisPoster["Woman"]
             ]
-            writer.writerows(csvRow)
+            writer.writerow(csvRow)
 
         except Exception:
             print(f"Unable to process {movie}...")
