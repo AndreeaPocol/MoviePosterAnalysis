@@ -22,6 +22,36 @@ backends = [
   'mediapipe'
 ]
 
+header = [
+    'id',
+    'title',
+    'year',
+    'genre',
+    'country',
+    'children',
+    'adolescents',
+    'adults',
+    'older-adults',
+    'asians',
+    'indians',
+    'blacks',
+    'whites',
+    'middle-easterns',
+    'latino-hispanics',
+    'men',
+    'women'
+]
+
+headerDetailed = [
+    'id',
+    'title',
+    'year',
+    'genre',
+    'country',
+    'age',
+    'race',
+    'gender'
+]
 
 posterDir = ""
 movieDataFile = ""
@@ -53,8 +83,14 @@ def ageBracket(age):
 
 def analyzePoster(movies):
     posters_without_faces = []
-    csvRows = []
-    csvRowsDetailed = []
+
+    file = open(f"{str(os.getpid())}-diversity-dataset.csv", 'a')
+    writer = csv.writer(file)
+    writer.writerow(header)
+    
+    fileDetailed = open(f"{str(os.getpid())}-diversity-dataset-detailed.csv", 'a')
+    writerDetailed = csv.writer(fileDetailed)
+    writerDetailed.writerow(headerDetailed)
 
     for movie in movies:
         # deepface classifications
@@ -81,50 +117,51 @@ def analyzePoster(movies):
                 agesInThisPoster[ageBracket(age)] += 1
                 gendersInThisPoster[gender] += 1
                 racesInThisPoster[race] += 1
-                csvRowDetailed = [tconst,
-                                  metadata['Title'],
-                                  metadata['Year'],
-                                  metadata['Genre'],
-                                  metadata['Country'],
-                                  age,
-                                  gender,
-                                  race]
-                csvRowsDetailed.append(csvRowDetailed)
-            
-            csvRow = [tconst,
-                      metadata['Title'],
-                      metadata['Year'],
-                      metadata['Genre'],
-                      metadata['Country'],
-                      agesInThisPoster["children"],
-                      agesInThisPoster["adolescents"],
-                      agesInThisPoster["adults"],
-                      agesInThisPoster["older-adults"],
-                      racesInThisPoster["asian"],
-                      racesInThisPoster["indian"],
-                      racesInThisPoster["black"],
-                      racesInThisPoster["white"],
-                      racesInThisPoster["middle eastern"],
-                      racesInThisPoster["latino hispanic"],
-                      gendersInThisPoster["Man"],
-                      gendersInThisPoster["Woman"]
-                    ]
-            csvRows.append(csvRow)
+                csvRowDetailed = [
+                    tconst,
+                    metadata['Title'],
+                    metadata['Year'],
+                    metadata['Genre'],
+                    metadata['Country'],
+                    age,
+                    gender,
+                    race
+                ]
+                writerDetailed.writerows(csvRowDetailed)  
+
+            csvRow = [
+                tconst,
+                metadata['Title'],
+                metadata['Year'],
+                metadata['Genre'],
+                metadata['Country'],
+                agesInThisPoster["children"],
+                agesInThisPoster["adolescents"],
+                agesInThisPoster["adults"],
+                agesInThisPoster["older-adults"],
+                racesInThisPoster["asian"],
+                racesInThisPoster["indian"],
+                racesInThisPoster["black"],
+                racesInThisPoster["white"],
+                racesInThisPoster["middle eastern"],
+                racesInThisPoster["latino hispanic"],
+                gendersInThisPoster["Man"],
+                gendersInThisPoster["Woman"]
+            ]
+            writer.writerows(csvRow)
 
         except Exception:
             print(f"Unable to process {movie}...")
             posters_without_faces.append(movie)
-    return posters_without_faces, csvRows, csvRowsDetailed
+    return posters_without_faces
 
 
 def main():
     NOFACES = []
-    ROWS = []
-    ROWSDETAILED = []
 
-    # chunk movies into AVAILABLE_CPUS of work
-    startAt = 0
-    endAt = 464861
+    # chunk the first half of the movies into AVAILABLE_CPUS of work
+    startAt = 0 #232430
+    endAt = 232430 #464861
     numToProcess = endAt - startAt
     numMoviesPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
     print(f"Number of movies per chunk: {numMoviesPerChunk}")
@@ -134,52 +171,28 @@ def main():
     pool.close()
     pool.join()
 
-    # JOIN all dictionaries into ONE
     for result in results:
         NOFACES += result[0]
-        ROWS += result[1]
-        ROWSDETAILED += result[2]
+    
+    # TODO: garbage collect (here?)
+
+    # chunk the second half of the movies into AVAILABLE_CPUS of work
+    startAt = 232430
+    endAt = 464862
+    numToProcess = endAt - startAt
+    numMoviesPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
+    print(f"Number of movies per chunk: {numMoviesPerChunk}")
+    moviesChunked = [paths[i:i + numMoviesPerChunk] for i in range(startAt, endAt, numMoviesPerChunk)]
+    pool = Pool(processes=AVAILABLE_CPUS)
+    results = pool.map(analyzePoster, moviesChunked)
+    pool.close()
+    pool.join()
+
+    for result in results:
+        NOFACES += result[0]
 
     with open("no_faces.txt",'w') as tfile:
         tfile.write('\n'.join(NOFACES))
-
-    header = ['id',
-              'title',
-              'year',
-              'genre',
-              'country',
-              'children',
-              'adolescents',
-              'adults',
-              'older-adults',
-              'asians',
-              'indians',
-              'blacks',
-              'whites',
-              'middle-easterns',
-              'latino-hispanics',
-              'men',
-              'women'
-            ]
-    with open("diversity-dataset.csv", 'w') as file:
-        writer = csv.writer(file)
-        writer.writerow(header)
-        writer.writerows(ROWS)
-
-    headerDetailed = ['id',
-                      'title',
-                      'year',
-                      'genre',
-                      'country',
-                      'age',
-                      'race',
-                      'gender'
-                    ]
-    
-    with open("diversity-dataset-detailed.csv", 'w') as file:
-        writer = csv.writer(file)
-        writer.writerow(headerDetailed)
-        writer.writerows(ROWSDETAILED)
 
 
 if __name__ == "__main__":
