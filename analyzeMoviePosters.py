@@ -54,6 +54,7 @@ def ageBracket(age):
 def analyzePoster(movies):
     posters_without_faces = []
     csvRows = []
+    csvRowsDetailed = []
 
     for movie in movies:
         # deepface classifications
@@ -69,6 +70,9 @@ def analyzePoster(movies):
                 detector_backend = backends[3]
             )
 
+            tconst = os.path.splitext(os.path.basename(movie))[0]
+            metadata = movieData[tconst]
+
             for face_analysis in analysis:
                 age = face_analysis['age']
                 gender = face_analysis['dominant_gender']
@@ -77,9 +81,16 @@ def analyzePoster(movies):
                 agesInThisPoster[ageBracket(age)] += 1
                 gendersInThisPoster[gender] += 1
                 racesInThisPoster[race] += 1
+                csvRowDetailed = [tconst,
+                                  metadata['Title'],
+                                  metadata['Year'],
+                                  metadata['Genre'],
+                                  metadata['Country'],
+                                  age,
+                                  gender,
+                                  race]
+                csvRowsDetailed.append(csvRowDetailed)
             
-            tconst = os.path.splitext(os.path.basename(movie))[0]
-            metadata = movieData[tconst]
             csvRow = [tconst,
                       metadata['Title'],
                       metadata['Year'],
@@ -103,12 +114,13 @@ def analyzePoster(movies):
         except Exception:
             print(f"Unable to process {movie}...")
             posters_without_faces.append(movie)
-    return posters_without_faces, csvRows
+    return posters_without_faces, csvRows, csvRowsDetailed
 
 
 def main():
     NOFACES = []
     ROWS = []
+    ROWSDETAILED = []
 
     # chunk movies into AVAILABLE_CPUS of work
     startAt = 0
@@ -126,6 +138,7 @@ def main():
     for result in results:
         NOFACES += result[0]
         ROWS += result[1]
+        ROWSDETAILED += result[2]
 
     with open("no_faces.txt",'w') as tfile:
         tfile.write('\n'.join(NOFACES))
@@ -152,6 +165,21 @@ def main():
         writer = csv.writer(file)
         writer.writerow(header)
         writer.writerows(ROWS)
+
+    headerDetailed = ['id',
+                      'title',
+                      'year',
+                      'genre',
+                      'country',
+                      'age',
+                      'race',
+                      'gender'
+                    ]
+    
+    with open("diversity-dataset-detailed.csv", 'w') as file:
+        writer = csv.writer(file)
+        writer.writerow(headerDetailed)
+        writer.writerows(ROWSDETAILED)
 
 
 if __name__ == "__main__":
