@@ -57,7 +57,7 @@ def main():
 
     # chunk tconsts into AVAILABLE_CPUS of work
     startAt = 0 #232430
-    endAt = 232430 #464861
+    endAt = 232430 #464862
     numToProcess = endAt - startAt
     numTCONSTPerChunk = (int)(numToProcess / AVAILABLE_CPUS) + 1
     print(numTCONSTPerChunk)
