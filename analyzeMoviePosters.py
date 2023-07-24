@@ -172,7 +172,7 @@ def main():
     pool.join()
 
     for result in results:
-        NOFACES += result[0]
+        NOFACES += result
     
     # TODO: garbage collect (here?)
 
