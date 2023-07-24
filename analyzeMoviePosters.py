@@ -189,7 +189,7 @@ def main():
     pool.join()
 
     for result in results:
-        NOFACES += result[0]
+        NOFACES += result
 
     with open("no_faces.txt",'w') as tfile:
         tfile.write('\n'.join(NOFACES))
