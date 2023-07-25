@@ -72,7 +72,6 @@ def main():
         DATA |= result[0]
         PROBLEMPOSTERS += result[1]
 
-    print( "Data: ", DATA["tt0066730"] )
     print("Ready to write files... with ", len( DATA.keys() ), " entries.")
     with open("omdb_movies.json", "w") as f:
         json.dump(DATA, f)
