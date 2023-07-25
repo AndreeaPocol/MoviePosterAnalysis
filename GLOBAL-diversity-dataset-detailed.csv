@@ -1,0 +1,131 @@
+id,title,year,genre,country,age,race,gender
+tt2527338,Star Wars: Episode IX - The Rise of Skywalker,2019,"Action, Adventure, Fantasy",United States,33,Man,black
+tt2527338,Star Wars: Episode IX - The Rise of Skywalker,2019,"Action, Adventure, Fantasy",United States,34,Man,white
+tt2527338,Star Wars: Episode IX - The Rise of Skywalker,2019,"Action, Adventure, Fantasy",United States,26,Woman,white
+tt1979376,Toy Story 4,2019,"Animation, Adventure, Comedy",United States,35,Man,middle eastern
+tt1979376,Toy Story 4,2019,"Animation, Adventure, Comedy",United States,28,Man,white
+tt1979376,Toy Story 4,2019,"Animation, Adventure, Comedy",United States,36,Man,white
+tt1979376,Toy Story 4,2019,"Animation, Adventure, Comedy",United States,26,Man,middle eastern
+tt1979376,Toy Story 4,2019,"Animation, Adventure, Comedy",United States,27,Man,white
+tt1979376,Toy Story 4,2019,"Animation, Adventure, Comedy",United States,33,Man,asian
+tt1300854,Iron Man 3,2013,"Action, Adventure, Sci-Fi",United States,44,Man,indian
+tt1074638,Skyfall,2012,"Action, Adventure, Thriller","United Kingdom, United States, Turkey",43,Man,white
+tt4630562,The Fate of the Furious,2017,"Action, Crime, Thriller","China, Japan, United States",48,Man,black
+tt4630562,The Fate of the Furious,2017,"Action, Crime, Thriller","China, Japan, United States",44,Man,middle eastern
+tt4630562,The Fate of the Furious,2017,"Action, Crime, Thriller","China, Japan, United States",31,Man,white
+tt4630562,The Fate of the Furious,2017,"Action, Crime, Thriller","China, Japan, United States",23,Man,white
+tt2488496,Star Wars: Episode VII - The Force Awakens,2015,"Action, Adventure, Sci-Fi",United States,30,Man,asian
+tt2488496,Star Wars: Episode VII - The Force Awakens,2015,"Action, Adventure, Sci-Fi",United States,59,Man,middle eastern
+tt2488496,Star Wars: Episode VII - The Force Awakens,2015,"Action, Adventure, Sci-Fi",United States,26,Man,black
+tt2488496,Star Wars: Episode VII - The Force Awakens,2015,"Action, Adventure, Sci-Fi",United States,34,Man,white
+tt2488496,Star Wars: Episode VII - The Force Awakens,2015,"Action, Adventure, Sci-Fi",United States,24,Man,middle eastern
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,27,Man,white
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,32,Man,middle eastern
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,32,Man,asian
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,31,Man,asian
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,29,Man,white
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,31,Man,black
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,30,Man,black
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,27,Man,white
+tt4154756,Avengers: Infinity War,2018,"Action, Adventure, Sci-Fi",United States,31,Man,white
+tt4520988,Frozen II,2019,"Animation, Adventure, Comedy","Japan, United States",33,Man,white
+tt4520988,Frozen II,2019,"Animation, Adventure, Comedy","Japan, United States",35,Man,asian
+tt4520988,Frozen II,2019,"Animation, Adventure, Comedy","Japan, United States",33,Woman,asian
+tt1477834,Aquaman,2018,"Action, Adventure, Fantasy","United States, Australia",28,Man,white
+tt1477834,Aquaman,2018,"Action, Adventure, Fantasy","United States, Australia",42,Man,latino hispanic
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,30,Man,black
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,38,Man,black
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,31,Man,black
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,35,Man,white
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,31,Man,white
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,28,Man,white
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,37,Man,black
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,24,Man,white
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,32,Man,white
+tt1825683,Black Panther,2018,"Action, Adventure, Sci-Fi",United States,29,Man,black
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,30,Man,white
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,27,Man,white
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,32,Man,white
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,40,Man,white
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,50,Man,white
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,28,Man,white
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,33,Man,white
+tt4154796,Avengers: Endgame,2019,"Action, Adventure, Drama",United States,38,Man,white
+tt0903624,The Hobbit: An Unexpected Journey,2012,"Adventure, Fantasy","New Zealand, United States",34,Man,white
+tt0848228,The Avengers,2012,"Action, Sci-Fi",United States,39,Man,white
+tt0848228,The Avengers,2012,"Action, Sci-Fi",United States,29,Man,white
+tt0848228,The Avengers,2012,"Action, Sci-Fi",United States,41,Man,middle eastern
+tt0848228,The Avengers,2012,"Action, Sci-Fi",United States,25,Man,white
+tt0167260,The Lord of the Rings: The Return of the King,2003,"Action, Adventure, Drama","New Zealand, United States",49,Man,white
+tt0167260,The Lord of the Rings: The Return of the King,2003,"Action, Adventure, Drama","New Zealand, United States",39,Man,black
+tt0167260,The Lord of the Rings: The Return of the King,2003,"Action, Adventure, Drama","New Zealand, United States",33,Man,white
+tt0167260,The Lord of the Rings: The Return of the King,2003,"Action, Adventure, Drama","New Zealand, United States",39,Man,middle eastern
+tt0167260,The Lord of the Rings: The Return of the King,2003,"Action, Adventure, Drama","New Zealand, United States",25,Man,black
+tt2948356,Zootopia,2016,"Animation, Adventure, Comedy",United States,30,Man,white
+tt1399103,Transformers: Dark of the Moon,2011,"Action, Adventure, Sci-Fi",United States,27,Man,white
+tt0369610,Jurassic World,2015,"Action, Adventure, Sci-Fi",United States,35,Man,white
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,36,Man,white
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,43,Man,middle eastern
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,32,Man,white
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,31,Man,middle eastern
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,31,Man,white
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,24,Man,white
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,32,Man,white
+tt2771200,Beauty and the Beast,2017,"Adventure, Family, Fantasy",United States,25,Man,asian
+tt0120915,Star Wars: Episode I - The Phantom Menace,1999,"Action, Adventure, Fantasy",United States,42,Man,white
+tt0120915,Star Wars: Episode I - The Phantom Menace,1999,"Action, Adventure, Fantasy",United States,29,Man,white
+tt0120915,Star Wars: Episode I - The Phantom Menace,1999,"Action, Adventure, Fantasy",United States,30,Man,white
+tt0383574,Pirates of the Caribbean: Dead Man's Chest,2006,"Action, Adventure, Fantasy",United States,26,Woman,white
+tt0383574,Pirates of the Caribbean: Dead Man's Chest,2006,"Action, Adventure, Fantasy",United States,38,Man,middle eastern
+tt0383574,Pirates of the Caribbean: Dead Man's Chest,2006,"Action, Adventure, Fantasy",United States,36,Man,latino hispanic
+tt0499549,Avatar,2009,"Action, Adventure, Fantasy",United States,29,Man,black
+tt3606756,Incredibles 2,2018,"Animation, Action, Adventure","United States, Japan",28,Man,white
+tt3606756,Incredibles 2,2018,"Animation, Action, Adventure","United States, Japan",35,Man,white
+tt3606756,Incredibles 2,2018,"Animation, Action, Adventure","United States, Japan",27,Man,black
+tt3606756,Incredibles 2,2018,"Animation, Action, Adventure","United States, Japan",26,Man,white
+tt2395427,Avengers: Age of Ultron,2015,"Action, Adventure, Sci-Fi",United States,38,Man,latino hispanic
+tt2395427,Avengers: Age of Ultron,2015,"Action, Adventure, Sci-Fi",United States,48,Man,middle eastern
+tt2395427,Avengers: Age of Ultron,2015,"Action, Adventure, Sci-Fi",United States,27,Man,white
+tt2395427,Avengers: Age of Ultron,2015,"Action, Adventure, Sci-Fi",United States,28,Man,white
+tt1298650,Pirates of the Caribbean: On Stranger Tides,2011,"Action, Adventure, Fantasy","United States, United Kingdom",41,Man,middle eastern
+tt1298650,Pirates of the Caribbean: On Stranger Tides,2011,"Action, Adventure, Fantasy","United States, United Kingdom",31,Man,white
+tt1298650,Pirates of the Caribbean: On Stranger Tides,2011,"Action, Adventure, Fantasy","United States, United Kingdom",33,Man,black
+tt1298650,Pirates of the Caribbean: On Stranger Tides,2011,"Action, Adventure, Fantasy","United States, United Kingdom",30,Woman,middle eastern
+tt6139732,Aladdin,2019,"Adventure, Comedy, Family","United States, United Kingdom",32,Man,latino hispanic
+tt6139732,Aladdin,2019,"Adventure, Comedy, Family","United States, United Kingdom",31,Man,middle eastern
+tt6139732,Aladdin,2019,"Adventure, Comedy, Family","United States, United Kingdom",35,Man,black
+tt0120338,Titanic,1997,"Drama, Romance","United States, Mexico",34,Woman,white
+tt0120338,Titanic,1997,"Drama, Romance","United States, Mexico",26,Woman,white
+tt2294629,Frozen,2013,"Animation, Adventure, Comedy",United States,36,Man,asian
+tt2294629,Frozen,2013,"Animation, Adventure, Comedy",United States,38,Woman,asian
+tt2294629,Frozen,2013,"Animation, Adventure, Comedy",United States,31,Woman,asian
+tt4154664,Captain Marvel,2019,"Action, Adventure, Sci-Fi","United States, Australia",31,Woman,white
+tt4881806,Jurassic World: Fallen Kingdom,2018,"Action, Adventure, Sci-Fi","United States, China",33,Man,asian
+tt4881806,Jurassic World: Fallen Kingdom,2018,"Action, Adventure, Sci-Fi","United States, China",39,Man,asian
+tt0435761,Toy Story 3,2010,"Animation, Adventure, Comedy","United States, Japan",36,Man,white
+tt0435761,Toy Story 3,2010,"Animation, Adventure, Comedy","United States, Japan",29,Man,asian
+tt0435761,Toy Story 3,2010,"Animation, Adventure, Comedy","United States, Japan",36,Man,white
+tt0435761,Toy Story 3,2010,"Animation, Adventure, Comedy","United States, Japan",41,Man,white
+tt1201607,Harry Potter and the Deathly Hallows: Part 2,2011,"Adventure, Family, Fantasy","United Kingdom, United States",30,Man,white
+tt1201607,Harry Potter and the Deathly Hallows: Part 2,2011,"Adventure, Family, Fantasy","United Kingdom, United States",32,Man,asian
+tt1201607,Harry Potter and the Deathly Hallows: Part 2,2011,"Adventure, Family, Fantasy","United Kingdom, United States",31,Man,white
+tt2527336,Star Wars: Episode VIII - The Last Jedi,2017,"Action, Adventure, Fantasy",United States,23,Man,white
+tt2527336,Star Wars: Episode VIII - The Last Jedi,2017,"Action, Adventure, Fantasy",United States,32,Man,black
+tt2527336,Star Wars: Episode VIII - The Last Jedi,2017,"Action, Adventure, Fantasy",United States,39,Man,white
+tt2527336,Star Wars: Episode VIII - The Last Jedi,2017,"Action, Adventure, Fantasy",United States,33,Man,white
+tt2527336,Star Wars: Episode VIII - The Last Jedi,2017,"Action, Adventure, Fantasy",United States,33,Man,white
+tt2527336,Star Wars: Episode VIII - The Last Jedi,2017,"Action, Adventure, Fantasy",United States,44,Man,white
+tt3748528,Rogue One: A Star Wars Story,2016,"Action, Adventure, Sci-Fi",United States,35,Man,white
+tt3748528,Rogue One: A Star Wars Story,2016,"Action, Adventure, Sci-Fi",United States,32,Woman,white
+tt3748528,Rogue One: A Star Wars Story,2016,"Action, Adventure, Sci-Fi",United States,36,Man,white
+tt3748528,Rogue One: A Star Wars Story,2016,"Action, Adventure, Sci-Fi",United States,36,Man,white
+tt3748528,Rogue One: A Star Wars Story,2016,"Action, Adventure, Sci-Fi",United States,36,Man,white
+tt0241527,Harry Potter and the Sorcerer's Stone,2001,"Adventure, Family, Fantasy","United Kingdom, United States",30,Man,asian
+tt0241527,Harry Potter and the Sorcerer's Stone,2001,"Adventure, Family, Fantasy","United Kingdom, United States",31,Woman,white
+tt0241527,Harry Potter and the Sorcerer's Stone,2001,"Adventure, Family, Fantasy","United Kingdom, United States",43,Man,middle eastern
+tt0241527,Harry Potter and the Sorcerer's Stone,2001,"Adventure, Family, Fantasy","United Kingdom, United States",45,Man,white
+tt0241527,Harry Potter and the Sorcerer's Stone,2001,"Adventure, Family, Fantasy","United Kingdom, United States",47,Man,asian
+tt3498820,Captain America: Civil War,2016,"Action, Sci-Fi",United States,32,Man,white
+tt3498820,Captain America: Civil War,2016,"Action, Sci-Fi",United States,34,Man,white
+tt3498820,Captain America: Civil War,2016,"Action, Sci-Fi",United States,31,Man,asian
+tt3498820,Captain America: Civil War,2016,"Action, Sci-Fi",United States,29,Woman,middle eastern
