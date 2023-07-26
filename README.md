@@ -69,7 +69,7 @@ python3 analyzeMoviePosters.py [posterDir metadataFile]
 #### Example:
 
 ```
-python3 analyzeMoviePosters.py movies movies.json
+python3 analyzeMoviePosters.py posters omdb_movies.json
 ```
 
 #### Output:
@@ -93,3 +93,22 @@ The program outputs one CSV for all movie posters that were successfully process
 * 'women'
 
 The program also prints and saves a list of posters for which it was unable to detect at least one face, or for which an error was encountered during processing.
+
+### 5. `produceVisualizations.py`
+
+#### Usage:
+
+Supply the path to the diversity dataset.
+
+```
+python3 produceVisualizations.py [diversityDatasetFile ]
+```
+
+#### Example:
+
+```
+python3 produceVisualizations.py posters GT-GLOBAL-diversity-dataset.csv
+```
+
+#### Output:
+The program outputs several graphs.
