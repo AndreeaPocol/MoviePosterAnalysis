@@ -3,12 +3,9 @@ import requests
 from PIL import Image
 from io import BytesIO
 import json
-import os
 from multiprocessing import Pool
+from constants import AVAILABLE_CPUS
 
-AVAILABLE_CPUS = os.cpu_count() - 1
-if AVAILABLE_CPUS == 0:
-    AVAILABLE_CPUS = 1
 
 movieFile = ""
 postersFolder = ""

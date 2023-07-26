@@ -8,10 +8,7 @@ import os
 from multiprocessing import Pool
 import json
 import csv
-
-AVAILABLE_CPUS = os.cpu_count() - 1
-if AVAILABLE_CPUS == 0:
-    AVAILABLE_CPUS = 1
+from constants import AVAILABLE_CPUS
 
 backends = [
   'opencv', 

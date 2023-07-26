@@ -1,14 +1,11 @@
 import requests
 import json
-import os
 from multiprocessing import Pool
 from constants import key
+from constants import AVAILABLE_CPUS
 
 problematic = []
 
-AVAILABLE_CPUS = os.cpu_count() - 1
-if AVAILABLE_CPUS == 0:
-    AVAILABLE_CPUS = 1
 
 def make_request(tids):
     maxTIDS = len(tids)

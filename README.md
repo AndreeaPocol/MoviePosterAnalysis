@@ -26,7 +26,15 @@ The program outputs a list of tconsts in `tconsts.txt`.
 ### 2. [`downloadMovieMetadata.py`](downloadMovieMetadata.py)
 
 #### Usage:
-Ensure `tconsts.txt` exists in the script directory, along with a file called `constants.py` that defines a variable `key` and assigns it the value of your OMDb API key. Become an OMDb patron at [https://www.patreon.com/join/omdb](https://www.patreon.com/join/omdb) to receive an API key.
+Ensure `tconsts.txt` exists in the script directory, along with a file called `constants.py` that defines 
+- a variable `key` and assigns it the value of your OMDb API key[^1]
+- a variable `AVAILABLE_CPUS` as follows:
+```
+AVAILABLE_CPUS = os.cpu_count() - 1
+if AVAILABLE_CPUS == 0:
+    AVAILABLE_CPUS = 1
+```
+[^1] Become an OMDb patron at [https://www.patreon.com/join/omdb](https://www.patreon.com/join/omdb) to receive an API key.
 
 #### Example:
 ```
@@ -41,6 +49,13 @@ The program outputs
 ### 3. [`downloadMoviePosters.py`](downloadMoviePosters.py)
 
 #### Usage:
+
+Ensure `constants.py` exists in the script directory and defines a variable `AVAILABLE_CPUS` as follows:
+```
+AVAILABLE_CPUS = os.cpu_count() - 1
+if AVAILABLE_CPUS == 0:
+    AVAILABLE_CPUS = 1
+```
 
 ```
 python3 downloadMoviePosters.py [ movieFile downloadFolder ]
@@ -60,7 +75,15 @@ Movie posters are saved to the specified download folder.
 
 #### Usage:
 
+Ensure `constants.py` exists in the script directory and defines a variable `AVAILABLE_CPUS` as follows:
+```
+AVAILABLE_CPUS = os.cpu_count() - 1
+if AVAILABLE_CPUS == 0:
+    AVAILABLE_CPUS = 1
+```
+
 Supply the path to the folder containing the movie posters and a JSON file containing the corresponding metadata. 
+
 
 ```
 python3 analyzeMoviePosters.py [ posterDir metadataFile ]
