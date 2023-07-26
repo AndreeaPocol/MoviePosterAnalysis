@@ -26,7 +26,7 @@ The program outputs a list of tconsts in `tconsts.txt`.
 ### 2. `downloadMovieMetadata.py`
 
 #### Usage:
-Ensure `tconsts.txt` exists in the script directory.
+Ensure `tconsts.txt` exists in the script directory, along with a file called `constants.py` that defines a variable `key` and assigns it the value of your OMDb API key. Become an OMDb patron at [https://www.patreon.com/join/omdb](https://www.patreon.com/join/omdb) to receive an API key.
 
 #### Example:
 ```

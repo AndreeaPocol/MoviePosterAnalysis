@@ -2,9 +2,9 @@ import requests
 import json
 import os
 from multiprocessing import Pool
+from constants import key
 
 problematic = []
-key = "1844b7ba"
 
 AVAILABLE_CPUS = os.cpu_count() - 1
 if AVAILABLE_CPUS == 0:
