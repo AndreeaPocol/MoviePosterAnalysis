@@ -101,14 +101,14 @@ The program also prints and saves a list of posters for which it was unable to d
 Supply the path to the diversity dataset.
 
 ```
-python3 produceVisualizations.py [diversityDatasetFile ]
+python3 produceVisualizations.py [ diversityDatasetFile ]
 ```
 
 #### Example:
 
 ```
-python3 produceVisualizations.py posters GT-GLOBAL-diversity-dataset.csv
+python3 produceVisualizations.py GT-GLOBAL-diversity-dataset.csv
 ```
 
 #### Output:
-The program outputs several graphs.
+The program outputs several graphs and saves them as PNGs to the script directory.
