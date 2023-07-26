@@ -48,8 +48,10 @@ def processRaces(df):
     labels = ['Asian', 'Indian', 'Black', 'White', 'Middle-Eastern', 'Latino-Hispanic']
 
     fig, ax = plt.subplots()
-    ax.pie(races, labels=labels)
+    ax.pie(races)
     plt.title(f"Races {titleTemplate}", fontsize = 20, wrap=True)
+    patches, texts = plt.pie(races, startangle=90)
+    plt.legend(patches, labels, loc="best")
     plt.tight_layout()
     # plt.show()
     plt.savefig('races.png')
@@ -63,8 +65,11 @@ def processGenders(df):
     labels = ['Men', 'Women']
 
     fig, ax = plt.subplots()
-    ax.pie(genders, labels=labels)
+    ax.pie(genders)
     plt.title(f"Genders {titleTemplate}", fontsize = 20, wrap=True)
+    colors = ['yellowgreen', 'gold', 'lightskyblue', 'lightcoral']
+    patches, texts = plt.pie(genders, startangle=90, colors=colors)
+    plt.legend(patches, labels, loc="best")
     plt.tight_layout()
     # plt.show()
     plt.savefig('genders.png')
@@ -180,7 +185,6 @@ else:
 def processGendersByYear(df):
     df['year'] = pd.to_numeric(df['year'], errors='coerce')
     df = df.sort_values(by=['year'])
-    print(df['year'])
     years = []
     countsWomen = []
     countsMen = []
@@ -204,16 +208,17 @@ def processGendersByYear(df):
     plt.xlabel("Year")
     plt.xticks(years, rotation=70)
     plt.ylabel("Number of Women")
-    plt.title(f"Number of Women {titleTemplate}", wrap=True)
+    plt.title(f"Number of Women {titleTemplate}", fontsize = 20, wrap=True)
+    plt.tight_layout()
     plt.savefig(f'num-women-by-year.png')
 
 
 
 df = pd.read_csv(diversityDatasetFile)
 
-processRaces(df)
-processRacesByGenre(df)
-processGenders(df)
-processGendersByGenre(df)
+# processRaces(df)
+# processRacesByGenre(df)
+# processGenders(df)
+# processGendersByGenre(df)
 processGendersByYear(df)
     
