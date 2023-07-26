@@ -67,6 +67,9 @@ def processGenders(df):
     plt.savefig('genders.png')
 
 def processRacesByGenre(df):
+    highestNumRaces = 0
+    mostDiversePoster = 0
+
     for index, row in df.iterrows():
         movieGenres = row['genre'].split(",")
 
@@ -76,6 +79,15 @@ def processRacesByGenre(df):
         whites = row['whites']
         middleEasterns = row['middle-easterns']
         latinoHispanics = row['latino-hispanics']
+
+        races = np.array([asians, indians, blacks, whites, middleEasterns, latinoHispanics])
+        numRaces = np.count_nonzero(races)
+        if numRaces > highestNumRaces:
+            highestNumRaces = numRaces
+            mostDiversePoster = row['id']
+
+        if whites == 0:
+            print(f"No whites in {row['id']}")
             
         for genre in movieGenres:
             (racesByGenre[genre.strip()])['Asian'] += asians
@@ -84,7 +96,9 @@ def processRacesByGenre(df):
             (racesByGenre[genre.strip()])['White'] += whites
             (racesByGenre[genre.strip()])['Middle-Eastern'] += middleEasterns
             (racesByGenre[genre.strip()])['Latino-Hispanic'] += latinoHispanics
-        
+    
+    print(f"Most diverse poster: {mostDiversePoster}")
+
     for genre in racesByGenre.keys():
         print(f"Processing {genre}...")
         racesForGenre = racesByGenre[genre]
@@ -115,6 +129,8 @@ def processGendersByGenre(df):
 
         men = row['men']
         women = row['women']
+        if women > 0 and men == 0:
+            print(f"Just women in {row['id']}")
             
         for genre in movieGenres:
             (gendersByGenre[genre.strip()])['Man'] += men
