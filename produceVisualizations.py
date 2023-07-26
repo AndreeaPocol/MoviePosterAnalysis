@@ -35,6 +35,7 @@ gendersByGenre = {
     "Family": {"Woman": 0, "Man": 0}
 }
 
+
 def processRaces(df):
     asians = df['asians'].sum()
     indians = df['indians'].sum()
@@ -53,6 +54,7 @@ def processRaces(df):
     # plt.show()
     plt.savefig('races.png')
 
+
 def processGenders(df):
     men = df['men'].sum()
     women = df['women'].sum()
@@ -66,6 +68,7 @@ def processGenders(df):
     plt.tight_layout()
     # plt.show()
     plt.savefig('genders.png')
+
 
 def processRacesByGenre(df):
     highestNumRaces = 0
@@ -124,6 +127,7 @@ def processRacesByGenre(df):
         plt.savefig(f'{genre}-races.png')
         fig.clear()
 
+
 def processGendersByGenre(df):
     for index, row in df.iterrows():
         movieGenres = row['genre'].split(",")
@@ -159,7 +163,6 @@ def processGendersByGenre(df):
         plt.title(f"Genders in {genre}", fontsize = 20, wrap=True)
         plt.axis('equal')
         plt.savefig(f'{genre}-genders.png')
-        fig.clear()
 
 diversityDatasetFile = ""
 
@@ -173,10 +176,44 @@ else:
     )
     exit()
 
+
+def processGendersByYear(df):
+    df['year'] = pd.to_numeric(df['year'], errors='coerce')
+    df = df.sort_values(by=['year'])
+    print(df['year'])
+    years = []
+    countsWomen = []
+    countsMen = []
+    for index, row in df.iterrows():
+        men = row['men']
+        women = row['women']
+        year = row['year']
+        if year in years:
+            countsWomen[-1] += women
+            countsMen[-1] += men
+        else:
+            years.append(year)
+            countsWomen.append(women)
+            countsMen.append(men)
+    
+    # pctWomen = []
+    # for i in range(0, len(years)):
+    #     pctWomen.append((countsWomen[i]/(countsWomen[i]+countsMen[i]))*100)
+    
+    plt.bar(years, countsWomen)
+    plt.xlabel("Year")
+    plt.xticks(years, rotation=70)
+    plt.ylabel("Number of Women")
+    plt.title(f"Number of Women {titleTemplate}", wrap=True)
+    plt.savefig(f'num-women-by-year.png')
+
+
+
 df = pd.read_csv(diversityDatasetFile)
 
 processRaces(df)
 processRacesByGenre(df)
 processGenders(df)
 processGendersByGenre(df)
+processGendersByYear(df)
     
