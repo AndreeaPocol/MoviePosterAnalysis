@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import sys
 
 titleTemplate = "Featured in the Posters of 50 Highest-Grossing Movies of All Time"
 
@@ -160,8 +161,19 @@ def processGendersByGenre(df):
         plt.savefig(f'{genre}-genders.png')
         fig.clear()
 
+diversityDatasetFile = ""
 
-df = pd.read_csv('/Users/andreeapocol/Documents/Andreea/School/Graduate/CS 898 - Data Sources/Project/GLOBAL-diversity-dataset.csv')
+if len(sys.argv) == 2:
+    diversityDatasetFile = sys.argv[1]
+else:
+    print(
+        "Usage: {name} [ diversityDatasetFile ]".format(
+            name=sys.argv[0]
+        )
+    )
+    exit()
+
+df = pd.read_csv(diversityDatasetFile)
 
 processRaces(df)
 processRacesByGenre(df)
