@@ -51,7 +51,7 @@ def processRaces(df):
     ax.pie(races)
     plt.title(f"Races {titleTemplate}", fontsize = 20, wrap=True)
     patches, texts = plt.pie(races, startangle=90)
-    plt.legend(patches, labels, loc="best")
+    plt.legend(patches, labels, loc="best", prop={'size': 12})
     plt.tight_layout()
     # plt.show()
     plt.savefig('races.png')
@@ -69,7 +69,7 @@ def processGenders(df):
     plt.title(f"Genders {titleTemplate}", fontsize = 20, wrap=True)
     colors = ['yellowgreen', 'gold', 'lightskyblue', 'lightcoral']
     patches, texts = plt.pie(genders, startangle=90, colors=colors)
-    plt.legend(patches, labels, loc="best")
+    plt.legend(patches, labels, loc="best", prop={'size': 12})
     plt.tight_layout()
     # plt.show()
     plt.savefig('genders.png')
@@ -169,19 +169,6 @@ def processGendersByGenre(df):
         plt.axis('equal')
         plt.savefig(f'{genre}-genders.png')
 
-diversityDatasetFile = ""
-
-if len(sys.argv) == 2:
-    diversityDatasetFile = sys.argv[1]
-else:
-    print(
-        "Usage: {name} [ diversityDatasetFile ]".format(
-            name=sys.argv[0]
-        )
-    )
-    exit()
-
-
 def processGendersByYear(df):
     df['year'] = pd.to_numeric(df['year'], errors='coerce')
     df = df.sort_values(by=['year'])
@@ -205,20 +192,33 @@ def processGendersByYear(df):
     #     pctWomen.append((countsWomen[i]/(countsWomen[i]+countsMen[i]))*100)
     
     plt.bar(years, countsWomen)
-    plt.xlabel("Year")
+    plt.xlabel("Year", fontsize=12)
     plt.xticks(years, rotation=70)
-    plt.ylabel("Number of Women")
+    plt.ylabel("Number of Women", fontsize=12)
     plt.title(f"Number of Women {titleTemplate}", fontsize = 20, wrap=True)
-    plt.tight_layout()
-    plt.savefig(f'num-women-by-year.png')
+    plt.savefig(f'num-women-by-year.png', bbox_inches='tight')
 
+def main():
+    diversityDatasetFile = ""
 
+    if len(sys.argv) == 2:
+        diversityDatasetFile = sys.argv[1]
+    else:
+        print(
+            "Usage: {name} [ diversityDatasetFile ]".format(
+                name=sys.argv[0]
+            )
+        )
+        exit()
 
-df = pd.read_csv(diversityDatasetFile)
+    df = pd.read_csv(diversityDatasetFile)
 
-# processRaces(df)
-# processRacesByGenre(df)
-# processGenders(df)
-# processGendersByGenre(df)
-processGendersByYear(df)
+    # processRaces(df)
+    # processRacesByGenre(df)
+    # processGenders(df)
+    # processGendersByGenre(df)
+    processGendersByYear(df)
+
+if __name__ == "__main__":
+    main()
     
