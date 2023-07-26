@@ -43,7 +43,7 @@ The program outputs
 #### Usage:
 
 ```
-python3 downloadMoviePosters.py [ movieFile downloadFolder]
+python3 downloadMoviePosters.py [ movieFile downloadFolder ]
 ```
 
 #### Example:
@@ -63,7 +63,7 @@ Movie posters are saved to the specified download folder.
 Supply the path to the folder containing the movie posters and a JSON file containing the corresponding metadata. 
 
 ```
-python3 analyzeMoviePosters.py [posterDir metadataFile]
+python3 analyzeMoviePosters.py [ posterDir metadataFile ]
 ```
 
 #### Example:
