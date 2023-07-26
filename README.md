@@ -27,14 +27,14 @@ The program outputs a list of tconsts in `tconsts.txt`.
 
 #### Usage:
 Ensure `tconsts.txt` exists in the script directory, along with a file called `constants.py` that defines 
-- a variable `key` and assigns it the value of your OMDb API key[^1]
+- a variable `key` and assigns it the value of your OMDb API key<sup>*</sup>
 - a variable `AVAILABLE_CPUS` as follows:
 ```
 AVAILABLE_CPUS = os.cpu_count() - 1
 if AVAILABLE_CPUS == 0:
     AVAILABLE_CPUS = 1
 ```
-[^1] Become an OMDb patron at [https://www.patreon.com/join/omdb](https://www.patreon.com/join/omdb) to receive an API key.
+<sup>*</sup> Become an OMDb patron at [https://www.patreon.com/join/omdb](https://www.patreon.com/join/omdb) to receive an API key.
 
 #### Example:
 ```
