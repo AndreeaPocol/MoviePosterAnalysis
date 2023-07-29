@@ -10,14 +10,14 @@ racesByGenre = {
     "Romance": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Comedy": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Action": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
-    "Adventure": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Animation": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Crime": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Drama": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Sci-Fi": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Thriller": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
     "Fantasy": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
-    "Family": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0}
+    "Family": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0},
+    "Adventure": {"Asian": 0, "Indian": 0, "Black": 0, "White": 0, "Middle-Eastern": 0, "Latino-Hispanic": 0}
 }
 
 gendersByGenre = {
@@ -51,7 +51,7 @@ def processRaces(df):
     ax.pie(races)
     plt.title(f"Races {titleTemplate}", fontsize = 20, wrap=True)
     patches, texts = plt.pie(races, startangle=90)
-    plt.legend(patches, labels, loc="best", prop={'size': 12})
+    plt.legend(patches, labels, loc="lower center", prop={'size': 12})
     plt.tight_layout()
     # plt.show()
     plt.savefig('races.png')
@@ -126,11 +126,22 @@ def processRacesByGenre(df):
             continue
 
         fig, ax = plt.subplots()
-        ax.pie(counts, labels=raceLabels)
+        colors = {
+            'White': 'yellowgreen', 
+            'Asian': 'gold', 
+            'Black': 'lightskyblue', 
+            'Middle-Eastern': 'lightcoral',
+            'Latino-Hispanic': 'purple'
+        }
+        
+        patches, texts = ax.pie(counts, colors=[colors[v] for v in raceLabels])
+        # plt.legend(patches, raceLabels, loc="lower center", prop={'size': 12})
         plt.title(f"Races in {genre}", fontsize = 20, wrap=True)
         plt.axis('equal')
         plt.savefig(f'{genre}-races.png')
         fig.clear()
+    plt.legend(patches, raceLabels, loc="lower center", prop={'size': 12})
+    plt.show()
 
 
 def processGendersByGenre(df):
@@ -169,6 +180,7 @@ def processGendersByGenre(df):
         plt.axis('equal')
         plt.savefig(f'{genre}-genders.png')
 
+
 def processGendersByYear(df):
     df['year'] = pd.to_numeric(df['year'], errors='coerce')
     df = df.sort_values(by=['year'])
@@ -192,11 +204,12 @@ def processGendersByYear(df):
     #     pctWomen.append((countsWomen[i]/(countsWomen[i]+countsMen[i]))*100)
     
     plt.bar(years, countsWomen)
-    plt.xlabel("Year", fontsize=12)
+    plt.xlabel("Year", fontsize=14)
     plt.xticks(years, rotation=70)
     plt.ylabel("Number of Women", fontsize=12)
     plt.title(f"Number of Women {titleTemplate}", fontsize = 20, wrap=True)
     plt.savefig(f'num-women-by-year.png', bbox_inches='tight')
+
 
 def main():
     diversityDatasetFile = ""
